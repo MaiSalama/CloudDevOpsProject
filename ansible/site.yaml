@@ -1,6 +1,6 @@
 ---
 - name: Configure Jenkins Server
-  hosts: jenkins-server
+  hosts: inventory/aws_ec2.yaml
   become: yes
 
   roles:

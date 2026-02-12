@@ -3,5 +3,9 @@ regions:
   - us-east-1
 
 filters:
+<<<<<<< HEAD
   tag:service: db
+=======
+  tag:Name: JenkinsServer
+>>>>>>> 5b3f8d9 (Completing ansible setup.)
   instance-state-name: running
