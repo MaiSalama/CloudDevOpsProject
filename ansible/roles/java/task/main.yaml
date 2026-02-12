@@ -1,12 +1,7 @@
 ---
-<<<<<<< HEAD
-- name: Install OpenJDK 17
-  apt:
-    name: openjdk-17-jdk
-    state: present
-=======
+# tasks file for roles/java
+
 - name: Install OpenJDK 21
   apt:
     name: openjdk-21-jdk
     state: present
->>>>>>> 5b3f8d9 (Completing ansible setup.)
