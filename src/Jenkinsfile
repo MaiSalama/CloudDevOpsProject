@@ -29,33 +29,34 @@ pipeline {
        }
     }
 
-    // stage('RemoveImageLocally') {
-    //   steps {
-    //     removeImageLocally(IMAGE_NAME, IMAGE_TAG)
-    //   }
-    // }
+    stage('RemoveImageLocally') {
+       steps {
+         removeImageLocally(IMAGE_NAME, IMAGE_TAG)
+      }
+     }
 
-    //    stage('Commit & Push Manifests') {
-    //     steps {
-    //         dir(APP_DIR) {
-    //         withCredentials([usernamePassword(
-    //             credentialsId: 'github-token',
-    //             usernameVariable: 'GIT_USER',
-    //             passwordVariable: 'GIT_TOKEN')]) 
-    //         {
-    //         sh """
-    //         git config user.name "MaiSalama"
-    //         git config user.email "imaisalama@gmail.com"
+        stage('Commit & Push Manifests') {
+         steps {
+            dir(APP_DIR) {
+            withCredentials([usernamePassword(
+                credentialsId: 'github-token',
+                usernameVariable: 'GIT_USER',
+                passwordVariable: 'GIT_TOKEN')]) 
+            {
+            sh """
+            git config user.name "MaiSalama"
+            git config user.email "imaisalama@gmail.com"
 
-    //         git add ../k8s/deployment.yaml
-    //         git commit -m "chore: update image to ${IMAGE_TAG}" || echo "No changes to commit"
+            git add ../k8s/deployment.yaml
+            git commit -m "chore: update image to ${IMAGE_TAG}" || echo "No changes to commit"
 
-    //         git push https://${GIT_USER}:${GIT_TOKEN}@github.com/MaiSalama/ivolve_training.git HEAD:main
-    //         """
-    //         }
-    //     }
-    //     }
-    // }
+            git push https://${GIT_USER}:${GIT_TOKEN}@github.com/MaiSalama/ivolve_training.git HEAD:main
+            """
+            }
+        }
+        }
+    }
+    
   }// end stages
 
    post {
