@@ -6,7 +6,7 @@ withCredentials([string(
 {
     sh """
         rm -rf manifests
-        git clone -b ${branch} https://MaiSalama:${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject.git manifests
+        git clone -b ${branch} https://MaiSalama:${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject-Manifests.git manifests
         cd manifests
 
         sed -i 's|image:.*|image: ${image}:${tag}|' deployment.yaml
