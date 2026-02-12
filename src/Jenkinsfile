@@ -7,6 +7,8 @@ pipeline {
         APP_DIR    = 'src'
         IMAGE_NAME = 'imaisalama/devops-app'
         IMAGE_TAG  = "${BUILD_NUMBER}"
+        GIT_REPO     = "https://github.com/MaiSalama/CloudDevOpsProject-Manifests.git"
+        GIT_BRANCH   = "main"
     }
 
  stages {
@@ -35,28 +37,33 @@ pipeline {
       }
      }
 
-        stage('Commit & Push Manifests') {
-         steps {
-            dir(APP_DIR) {
-            withCredentials([usernamePassword(
-                credentialsId: 'github-token',
-                usernameVariable: 'GIT_USER',
-                passwordVariable: 'GIT_TOKEN')]) 
-            {
-            sh """
-            git config user.name "MaiSalama"
-            git config user.email "imaisalama@gmail.com"
+    //     stage('Commit & Push Manifests') {
+    //      steps {
+    //         dir(APP_DIR) {
+    //         withCredentials([usernamePassword(
+    //             credentialsId: 'github-token',
+    //             usernameVariable: 'GIT_USER',
+    //             passwordVariable: 'GIT_TOKEN')]) 
+    //         {
+    //         sh """
+    //         git config user.name "MaiSalama"
+    //         git config user.email "imaisalama@gmail.com"
 
-            git add ../k8s/deployment.yaml
-            git commit -m "chore: update image to ${IMAGE_TAG}" || echo "No changes to commit"
+    //         git add ../k8s/deployment.yaml
+    //         git commit -m "chore: update image to ${IMAGE_TAG}" || echo "No changes to commit"
 
-            git push https://${GIT_USER}:${GIT_TOKEN}@github.com/MaiSalama/ivolve_training.git HEAD:main
-            """
+    //         git push https://${GIT_USER}:${GIT_TOKEN}@github.com/MaiSalama/ivolve_training.git HEAD:main
+    //         """
+    //         }
+    //     }
+    //     }
+    // }
+
+stage('Update K8s Manifest') {
+            steps {
+                updateManifest(IMAGE_NAME, IMAGE_TAG, GIT_REPO, GIT_BRANCH)
             }
         }
-        }
-    }
-    
   }// end stages
 
    post {
