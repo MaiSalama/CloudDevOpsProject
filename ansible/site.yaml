@@ -1,0 +1,11 @@
+---
+- name: Configure Jenkins Server
+  hosts: jenkins-server
+  become: yes
+
+  roles:
+    - common
+    - git
+    - docker
+    - java
+    - jenkins
