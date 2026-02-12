@@ -44,6 +44,13 @@
     name: jenkins
     state: present
 
+# Add Jenkins user to docker group
+- name: Add Jenkins user to docker group
+  user:
+    name: jenkins
+    groups: docker
+    append: yes
+
 # Starts Jenkins immediately. Enables it at boot
 - name: Start and enable Jenkins service
   systemd:
