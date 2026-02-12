@@ -2,7 +2,7 @@ def call(image, tag, repo, branch) {
 withCredentials([string(
     credentialsId: 'github-token',
     variable: 'GIT_TOKEN'
-)]) {
+)]) 
 {
     sh """
         rm -rf manifests
