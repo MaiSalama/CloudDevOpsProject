@@ -1,12 +1,15 @@
 @Library('ci-lib') _
 
-environment {
-    APP_DIR    = 'src'
-    IMAGE_NAME = 'imaisalama/devops-app'
-    IMAGE_TAG  = "${BUILD_NUMBER}"
-  }
+pipeline {
+    agent any
+    
+    environment {
+        APP_DIR    = 'src'
+        IMAGE_NAME = 'imaisalama/devops-app'
+        IMAGE_TAG  = "${BUILD_NUMBER}"
+    }
 
-  stages {
+ stages {
 
     stage('BuildImage') {
       steps {
@@ -38,6 +41,10 @@ environment {
     //   }
     // }
   }
+}
+    
+
+ 
 
   post {
 
