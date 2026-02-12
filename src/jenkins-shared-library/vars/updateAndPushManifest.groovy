@@ -1,12 +1,12 @@
 def call(image, tag, repo, branch) {
-withCredentials([usernamePassword(
-                 credentialsId: 'github-token',
-                 usernameVariable: 'GIT_USER',
-                 passwordVariable: 'GIT_TOKEN')]) 
+withCredentials([string(
+    credentialsId: 'github-token',
+    variable: 'GIT_TOKEN'
+)]) {
 {
     sh """
         rm -rf manifests
-        git clone -b ${branch} ${repo} manifests
+        git clone -b ${branch} https://MaiSalama:${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject.git manifests
         cd manifests
 
         sed -i 's|image:.*|image: ${image}:${tag}|' deployment.yaml
