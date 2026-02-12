@@ -23,17 +23,11 @@ pipeline {
         }
     }
 
-    // stage('ScanImage') {
-    //   steps {
-    //     scanImage(IMAGE_NAME, IMAGE_TAG)
-    //   }
-    // }
-
-    // stage('PushImage') {
-    //   steps {
-    //     pushImage(IMAGE_NAME, IMAGE_TAG)
-    //   }
-    // }
+    stage('PushImage') {
+       steps {
+         pushImage(IMAGE_NAME, IMAGE_TAG)
+       }
+    }
 
     // stage('RemoveImageLocally') {
     //   steps {
@@ -63,16 +57,18 @@ pipeline {
     //     }
     // }
   }// end stages
-}
-    
-  post {
 
-    success {
-      echo 'CI/CD pipeline completed successfully'
-    }
+   post {
 
-    failure {
+     success {
+       echo 'CI/CD pipeline completed successfully'
+     }
+
+     failure {
       echo 'Pipeline failed'
     }
 
   }
+}
+    
+  
