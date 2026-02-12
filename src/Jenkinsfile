@@ -61,7 +61,7 @@ pipeline {
 
 stage('Update K8s Manifest') {
             steps {
-                updateManifest(IMAGE_NAME, IMAGE_TAG, GIT_REPO, GIT_BRANCH)
+                updateAndPushManifest(IMAGE_NAME, IMAGE_TAG, GIT_REPO, GIT_BRANCH)
             }
         }
   }// end stages
