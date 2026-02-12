@@ -1,5 +1,9 @@
 def call(image, tag, repo, branch) {
-
+withCredentials([usernamePassword(
+                 credentialsId: 'github-token',
+                 usernameVariable: 'GIT_USER',
+                 passwordVariable: 'GIT_TOKEN')]) 
+{
     sh """
         rm -rf manifests
         git clone -b ${branch} ${repo} manifests
@@ -14,5 +18,6 @@ def call(image, tag, repo, branch) {
         git commit -m "Update image to ${tag}"
         git push origin ${branch}
     """
+}
 }
 
