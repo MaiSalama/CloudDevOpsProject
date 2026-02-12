@@ -20,6 +20,7 @@
     dest: /etc/apt/keyrings/jenkins-keyring.asc
     mode: '0644'
 
+# Adds Jenkins repository to apt sources. 
 - name: Add Jenkins stable repository with signed-by
   copy:
     content: |
@@ -27,21 +28,25 @@
     dest: /etc/apt/sources.list.d/jenkins.list
     mode: '0644'
 
+# After adding new repo, apt must refresh package list.
 - name: Update apt cache after adding repo
   apt:
     update_cache: yes
 
+# Installs Jenkins service and dependencies (including Java if required).
 - name: Install Jenkins
   apt:
     name: jenkins
     state: present
 
+# Starts Jenkins immediately. Enables it at boot
 - name: Start and enable Jenkins service
   systemd:
     name: jenkins
     state: started
     enabled: yes
 
+# Wait until port 8080 is open.
 - name: Wait for Jenkins to start (port 8080)
   wait_for:
     port: 8080
@@ -56,5 +61,4 @@
 
 - name: Display initial admin password
   debug:
-    msg: |
-      Jenkins is ready!
+    msg: "Initial admin password: {{ initial_password.stdout }}"
