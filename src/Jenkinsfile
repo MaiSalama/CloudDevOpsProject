@@ -2,7 +2,7 @@
 
 pipeline {
     agent any
-    
+
     environment {
         APP_DIR    = 'src'
         IMAGE_NAME = 'imaisalama/devops-app'
@@ -11,10 +11,16 @@ pipeline {
 
  stages {
 
-    stage('BuildImage') {
+    stage('Build Image') {
       steps {
-        docker_build(APP_DIR, IMAGE_NAME, IMAGE_TAG)
+        dockerBuild(APP_DIR, IMAGE_NAME, IMAGE_TAG)
       }
+    }
+
+    stage('Trivy Scan Image') {
+        steps {
+            trivyImageScan(IMAGE_NAME, IMAGE_TAG)
+        }
     }
 
     // stage('ScanImage') {
@@ -35,17 +41,30 @@ pipeline {
     //   }
     // }
 
-    // stage('DeployOnK8s') {
-    //   steps {
-    //     deployOnK8s(APP_DIR)
-    //   }
+    //    stage('Commit & Push Manifests') {
+    //     steps {
+    //         dir(APP_DIR) {
+    //         withCredentials([usernamePassword(
+    //             credentialsId: 'github-token',
+    //             usernameVariable: 'GIT_USER',
+    //             passwordVariable: 'GIT_TOKEN')]) 
+    //         {
+    //         sh """
+    //         git config user.name "MaiSalama"
+    //         git config user.email "imaisalama@gmail.com"
+
+    //         git add ../k8s/deployment.yaml
+    //         git commit -m "chore: update image to ${IMAGE_TAG}" || echo "No changes to commit"
+
+    //         git push https://${GIT_USER}:${GIT_TOKEN}@github.com/MaiSalama/ivolve_training.git HEAD:main
+    //         """
+    //         }
+    //     }
+    //     }
     // }
-  }
+  }// end stages
 }
     
-
- 
-
   post {
 
     success {
