@@ -7,8 +7,8 @@ def call(image, tag, repo, branch) {
 
         sed -i 's|image:.*|image: ${image}:${tag}|' deployment.yaml
 
-        git config user.email "jenkins@devops.com"
-        git config user.name "Jenkins"
+        git config user.email "imaisalama@gmail.com"
+        git config user.name "MaiSalama"
 
         git add .
         git commit -m "Update image to ${tag}"
