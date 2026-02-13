@@ -1,5 +1,6 @@
-def call(String imagename,String tag) {
+// Scan Docker image using Trivy for vulnerabilities
+def call(String imageName, String imageTag) {
 
-    sh "trivy image ${imagename}:${tag} ||true"
-
+    // Run Trivy scan; do not fail pipeline on findings
+    sh "trivy image ${imageName}:${imageTag} || true"
 }

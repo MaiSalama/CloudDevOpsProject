@@ -1,23 +1,26 @@
-def call(image, tag, repo, branch) {
-withCredentials([string(
-    credentialsId: 'github-token',
-    variable: 'GIT_TOKEN'
-)]) 
-{
-    sh """
-        rm -rf manifests
-        git clone -b ${branch} https://MaiSalama:${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject-Manifests.git manifests
-        cd manifests
+// Update Kubernetes deployment manifest and push changes to GitOps repository
+def call(String imageName, String imageTag) {
 
-        sed -i 's|image:.*|image: ${image}:${tag}|' deployment.yaml
+    // Inject GitHub Personal Access Token from Jenkins credentials
+    withCredentials([string(
+        credentialsId: 'github-token',
+        variable: 'GIT_TOKEN'
+    )]) {
 
-        git config user.email "imaisalama@gmail.com"
-        git config user.name "MaiSalama"
+        // Clone manifests repo, update image tag, commit and push changes
+        sh """
+            rm -rf manifests
+            git clone -b main https://MaiSalama:\${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject-Manifests.git manifests
+            cd manifests
 
-        git add .
-        git commit -m "Update image to ${tag}"
-        git push origin ${branch}
-    """
+            sed -i 's|image:.*|image: ${imageName}:${imageTag}|' deployment.yaml
+
+            git config user.email "imaisalama@gmail.com"
+            git config user.name "MaiSalama"
+
+            git add .
+            git commit -m "Update image to ${imageTag}"
+            git push origin main
+        """
+    }
 }
-}
-

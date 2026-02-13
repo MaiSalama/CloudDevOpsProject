@@ -1,82 +1,67 @@
+// Load shared library
 @Library('ci-lib') _
 
 pipeline {
+
+    // Run on any available Jenkins agent
     agent any
 
+    // Global pipeline variables
     environment {
-        APP_DIR    = 'src'
-        IMAGE_NAME = 'imaisalama/devops-app'
-        IMAGE_TAG  = "${BUILD_NUMBER}"
-        GIT_REPO     = "https://github.com/MaiSalama/CloudDevOpsProject-Manifests.git"
-        GIT_BRANCH   = "main"
+        APP_DIR     = 'src'
+        IMAGE_NAME  = 'imaisalama/devops-app'
+        IMAGE_TAG   = "${BUILD_NUMBER}"
+        GIT_BRANCH  = "main"
     }
 
- stages {
+    stages {
 
-    stage('Build Image') {
-      steps {
-        dockerBuild(APP_DIR, IMAGE_NAME, IMAGE_TAG)
-      }
-    }
-
-    stage('Trivy Scan Image') {
-        steps {
-            trivyImageScan(IMAGE_NAME, IMAGE_TAG)
-        }
-    }
-
-    stage('PushImage') {
-       steps {
-         pushImage(IMAGE_NAME, IMAGE_TAG)
-       }
-    }
-
-    stage('RemoveImageLocally') {
-       steps {
-         removeImageLocally(IMAGE_NAME, IMAGE_TAG)
-      }
-     }
-
-    //     stage('Commit & Push Manifests') {
-    //      steps {
-    //         dir(APP_DIR) {
-    //         withCredentials([usernamePassword(
-    //             credentialsId: 'github-token',
-    //             usernameVariable: 'GIT_USER',
-    //             passwordVariable: 'GIT_TOKEN')]) 
-    //         {
-    //         sh """
-    //         git config user.name "MaiSalama"
-    //         git config user.email "imaisalama@gmail.com"
-
-    //         git add ../k8s/deployment.yaml
-    //         git commit -m "chore: update image to ${IMAGE_TAG}" || echo "No changes to commit"
-
-    //         git push https://${GIT_USER}:${GIT_TOKEN}@github.com/MaiSalama/ivolve_training.git HEAD:main
-    //         """
-    //         }
-    //     }
-    //     }
-    // }
-
-stage('Update K8s Manifest') {
+        stage('Build Image') {
+            // Build Docker image
             steps {
-                updateAndPushManifest(IMAGE_NAME, IMAGE_TAG, GIT_REPO, GIT_BRANCH)
+                dockerBuild(APP_DIR, IMAGE_NAME, IMAGE_TAG)
             }
         }
-  }// end stages
 
-   post {
+        stage('Security Scan') {
+            // Scan image using Trivy
+            steps {
+                trivyImageScan(IMAGE_NAME, IMAGE_TAG)
+            }
+        }
 
-     success {
-       echo 'CI/CD pipeline completed successfully'
-     }
+        stage('Push Image') {
+            // Push image to DockerHub
+            steps {
+                pushImage(IMAGE_NAME, IMAGE_TAG)
+            }
+        }
 
-     failure {
-      echo 'Pipeline failed'
+        stage('Cleanup Local Image') {
+            // Remove local image to free agent space
+            steps {
+                removeImageLocally(IMAGE_NAME, IMAGE_TAG)
+            }
+        }
+
+        stage('Update K8s Manifest (GitOps)') {
+            // Update deployment.yaml and push to manifests repo
+            steps {
+                updateAndPushManifest(IMAGE_NAME, IMAGE_TAG)
+            }
+        }
     }
 
-  }
+    post {
+
+        success {
+            // Pipeline completed successfully
+            echo 'CI/CD pipeline completed successfully'
+        }
+
+        failure {
+            // Pipeline execution failed
+            echo 'Pipeline failed'
+        }
+    }
 }
-    
-  
