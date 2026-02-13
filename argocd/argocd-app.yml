@@ -4,9 +4,10 @@ metadata:
   name: my-app
   namespace: argocd
 spec:
+  project: default                  # ← ده الحقل اللي كان ناقص – أضفه هنا
   source:
     repoURL: https://github.com/MaiSalama/CloudDevOpsProject.git
-    targetRevision: main
+    targetRevision: deploy-branch   # تأكد إنه الـ branch الصحيح
     path: argocd
   destination:
     server: https://kubernetes.default.svc

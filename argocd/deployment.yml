@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: imaisalama/devops-app
+          image: imaisalama/devops-app:latest
           ports:
             - containerPort: 80
