@@ -41,7 +41,7 @@ Using Ansible, this project:
 
 ----------
 
-# 3- Environment Setup
+# 3- Install Ansible
 
 ## Update System
 
@@ -49,7 +49,7 @@ Using Ansible, this project:
 
 ## Install Ansible
 
-    sudo apt install ansible -y sudo apt install ansible-core 
+    sudo apt install ansible -y  
 
 ## Verify Installation
 
