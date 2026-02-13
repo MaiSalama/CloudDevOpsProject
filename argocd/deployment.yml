@@ -17,4 +17,4 @@ spec:
         - name: my-app
           image: imaisalama/devops-app:4
           ports:
-            - containerPort: 80
+            - containerPort: 5000
