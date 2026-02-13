@@ -1,5 +1,5 @@
 
-# Ansible Automation – Jenkins CI Server Provisioning
+# Ansible Automation – Jenkins CI Server Provisioning.
 
 This directory contains the Infrastructure Automation layer for the **CloudDevOpsProject**.
 
