@@ -4,11 +4,10 @@ metadata:
   name: my-app
   namespace: argocd
 spec:
-  project: default
   source:
-    repoURL: https://github.com/YOUR-USERNAME/argo-repo.git
+    repoURL: https://github.com/MaiSalama/CloudDevOpsProject.git
     targetRevision: main
-    path: .
+    path: argocd
   destination:
     server: https://kubernetes.default.svc
     namespace: app-namespace
