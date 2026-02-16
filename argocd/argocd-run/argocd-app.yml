@@ -4,15 +4,17 @@ metadata:
   name: my-app
   namespace: argocd
 spec:
-  project: default                  # ← ده الحقل اللي كان ناقص – أضفه هنا
+  project: default
   source:
     repoURL: https://github.com/MaiSalama/CloudDevOpsProject.git
-    targetRevision: deploy-branch   # تأكد إنه الـ branch الصحيح
-    path: argocd
+    targetRevision: deploy-branch
+    path: app
   destination:
     server: https://kubernetes.default.svc
     namespace: app-namespace
   syncPolicy:
-    automated: {}
+    automated:
+      prune: true
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true

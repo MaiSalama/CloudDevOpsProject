@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: my-app
+  namespace: monitoring
+spec:
+  selector:
+    matchLabels:
+      app: my-app
+  namespaceSelector:
+    matchNames:
+      - app-namespace
+  endpoints:
+    - port: metrics
+      path: /metrics
+      interval: 15s
