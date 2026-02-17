@@ -1,26 +1,28 @@
-// Update Kubernetes deployment manifest and push changes to GitOps repository
+
+// Update Kubernetes deployment manifest and push changes to same repository (k8s folder)
 def call(String imageName, String imageTag) {
 
-    // Inject GitHub Personal Access Token from Jenkins credentials
     withCredentials([string(
         credentialsId: 'github-token',
         variable: 'GIT_TOKEN'
     )]) {
 
-        // Clone manifests repo, update image tag, commit and push changes
         sh """
-            rm -rf manifests
-            git clone -b main https://youssef-elmansy:\${GIT_TOKEN}@github.com/youssef-elmansy/ivolve-project-manifests.git manifests
-            cd manifests
-
-            sed -i 's|image:.*|image: ${imageName}:${imageTag}|' deployment.yaml
-
             git config user.email "imaisalama@gmail.com"
             git config user.name "MaiSalama"
 
-            git add .
+            # Make sure we are on main branch
+            git checkout main
+
+            # Pull latest changes
+            git pull https://MaiSalama:\${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject.git main
+
+            # Update image inside k8s deployment file
+            sed -i 's|image:.*|image: ${imageName}:${imageTag}|' k8s/deployment.yaml
+
+            git add k8s/deployment.yaml
             git commit -m "Update image to ${imageTag}"
-            git push origin main
+            git push https://MaiSalama:\${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject.git main
         """
     }
 }
