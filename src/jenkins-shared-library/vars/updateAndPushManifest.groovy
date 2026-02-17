@@ -18,9 +18,9 @@ def call(String imageName, String imageTag) {
             git pull https://MaiSalama:\${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject.git main
 
             # Update image inside k8s deployment file
-            sed -i 's|image:.*|image: ${imageName}:${imageTag}|' k8s/deployment.yaml
+            sed -i 's|image:.*|image: ${imageName}:${imageTag}|' k8s/deployment.yml
 
-            git add k8s/deployment.yaml
+            git add k8s/deployment.yml
             git commit -m "Update image to ${imageTag}"
             git push https://MaiSalama:\${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject.git main
         """
