@@ -9,7 +9,7 @@ pipeline {
     // Global pipeline variables
     environment {
         APP_DIR     = 'src'
-        IMAGE_NAME  = 'imaisalama/devops-app'
+        IMAGE_NAME  = 'mohamedtaha934/ivolve-project'
         IMAGE_TAG   = "${BUILD_NUMBER}"
         GIT_BRANCH  = "main"
     }
@@ -22,14 +22,14 @@ pipeline {
                 dockerBuild(APP_DIR, IMAGE_NAME, IMAGE_TAG)
             }
         }
-/*
+
         stage('Security Scan') {
             // Scan image using Trivy
             steps {
                 trivyImageScan(IMAGE_NAME, IMAGE_TAG)
             }
         }
-*/
+
         stage('Push Image') {
             // Push image to DockerHub
             steps {
