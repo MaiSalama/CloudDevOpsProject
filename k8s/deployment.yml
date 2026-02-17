@@ -15,6 +15,6 @@ spec:
     spec:
       containers:
         - name: my-app
-          image: youssefaelmansy/devops-app:12
+          image: youssefaelmansy/devops-app:13
           ports:
             - containerPort: 5000
