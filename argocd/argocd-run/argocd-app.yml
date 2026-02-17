@@ -7,8 +7,8 @@ spec:
   project: default
   source:
     repoURL: https://github.com/MaiSalama/CloudDevOpsProject.git
-    targetRevision: deploy-branch
-    path: argocd          # 👈 مهم جدًا (مكان الفايلات)
+    targetRevision: main
+    path: k8s         
   destination:
     server: https://kubernetes.default.svc
     namespace: app-namespace

@@ -10,7 +10,7 @@ def call(String imageName, String imageTag) {
         // Clone manifests repo, update image tag, commit and push changes
         sh """
             rm -rf manifests
-            git clone -b main https://MaiSalama:\${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject-Manifests.git manifests
+            git clone -b main https://MaiSalama:\${GIT_TOKEN}@github.com/MaiSalama/CloudDevOpsProject-myargo.git manifests
             cd manifests
 
             sed -i 's|image:.*|image: ${imageName}:${imageTag}|' deployment.yaml
