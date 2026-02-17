@@ -9,3 +9,4 @@
     - java
     - jenkins
     - trivy
+    - jenkins_ci_setup
