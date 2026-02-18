@@ -304,9 +304,10 @@ ArgoCD will:
 * Access app by the LoadBalancer service `External-IP`
 ---
 
-## 🎥 Demo Video
+### Demo Video (iVolve Project)
 
-[](https://github.com/MaiSalama/CloudDevOpsProject/raw/main/Images-Video/iVolove-Project-Demo.mp4)
+[![iVolve Project Demo](https://img.youtube.com/vi/Ko3KUwFqk9E/hqdefault.jpg)](https://youtu.be/Ko3KUwFqk9E)
+
 ---
 ## Authors
 
