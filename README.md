@@ -306,11 +306,7 @@ ArgoCD will:
 
 ## 🎥 Demo Video
 
-<video width="800" controls>
-  <source src="./Images-Video/iVolve-Project-Demo.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
-
+[](https://github.com/MaiSalama/CloudDevOpsProject/raw/main/Images-Video/iVolove-Project-Demo.mp4)
 ---
 ## Authors
 
