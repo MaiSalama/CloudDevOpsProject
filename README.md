@@ -50,8 +50,6 @@ This project represents a production-grade DevOps architecture where the entire 
 ---
 ## 🖼 Architecture Diagram
 
-Add architecture diagram here:
-
 ![](./Images-Video/project_arch.drawio.png)
 
 ---
