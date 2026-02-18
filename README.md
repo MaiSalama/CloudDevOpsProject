@@ -306,9 +306,8 @@ ArgoCD will:
 
 ## Demo Video - iVolve Project
 
-![iVolve Project Demo](https://youtu.be/Ko3KUwFqk9E)
+[iVolve Project Demo](https://youtu.be/Ko3KUwFqk9E)
 
-اضغط على الصورة عشان تشغل الفيديو (يفتح player يوتيوب كامل).
 ---
 ## Authors
 
